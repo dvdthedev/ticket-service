@@ -1,8 +1,13 @@
 package dev.dvd.ticketservice.dto;
 
+import dev.dvd.ticketservice.model.Event;
+
 import java.time.LocalDateTime;
 
 public record EventResponseDTO(Long id,
-                               String name,
                                LocalDateTime date,
-                               String venue) {}
+                               String venue) {
+    public EventResponseDTO(Event event) {
+        this(event.getId(), event.getDate(), event.getVenue());
+    }
+}
