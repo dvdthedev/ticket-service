@@ -16,14 +16,29 @@ public class EventController {
         this.eventService = eventService;
     }
 
-    @GetMapping
-    public String helloWorld(){
-        return "Hello World";
+    @GetMapping({"/{id}"})
+    public ResponseEntity<EventResponseDTO> getEvent(@PathVariable Long id){
+        EventResponseDTO response = eventService.get(id);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping
-    public ResponseEntity<EventResponseDTO> create(@RequestBody EventRequestDTO registrationData){
+    public ResponseEntity<EventResponseDTO> createEvent(@RequestBody EventRequestDTO registrationData){
         EventResponseDTO response = eventService.create(registrationData);
         return ResponseEntity.ok(response);
     }
+
+    @PutMapping({"/{id}"})
+    public ResponseEntity<EventResponseDTO> updateEvent(@PathVariable Long id, @RequestBody EventRequestDTO registrationData){
+        EventResponseDTO response = eventService.update(id, registrationData);
+        return ResponseEntity.ok(response);
+    }
+
+    /*  --- Criar campos de evento desativado no banco de dados
+    @DeleteMapping({"/{id}"})
+    public ResponseEntity<Void> deleteEvent(@PathVariable Long id){
+        eventService.deleteById(id);
+    }
+
+     */
 }

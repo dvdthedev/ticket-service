@@ -2,6 +2,7 @@ package dev.dvd.ticketservice.service;
 
 import dev.dvd.ticketservice.dto.EventRequestDTO;
 import dev.dvd.ticketservice.dto.EventResponseDTO;
+import dev.dvd.ticketservice.exception.ResourceNotFoundException;
 import dev.dvd.ticketservice.model.Event;
 import dev.dvd.ticketservice.repository.EventRepository;
 import jakarta.transaction.Transactional;
@@ -30,6 +31,24 @@ public class EventService {
 
     private Event convertToEntity(EventRequestDTO registrationData){
         return new Event(registrationData);
+
+    }
+
+    public EventResponseDTO get(Long id) {
+        Event event = eventRepository.getReferenceById(id);
+        return convertToDTO(event);
+
+    }
+
+    public void deleteById(Long id) {
+        if(!eventRepository.existsById(id)){
+
+        }
+    }
+
+    public EventResponseDTO update(Long id, EventRequestDTO registrationData) {
+        Event event = eventRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Event not found"));
+
 
     }
 }
