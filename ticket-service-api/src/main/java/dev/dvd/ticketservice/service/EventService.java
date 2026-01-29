@@ -48,7 +48,10 @@ public class EventService {
 
     public EventResponseDTO update(Long id, EventRequestDTO registrationData) {
         Event event = eventRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Event not found"));
+        event.setDate(registrationData.date());
+        event.setVenue(registrationData.venue());
 
-
+        Event updatedEvent = eventRepository.save(event);
+        return convertToDTO(updatedEvent);
     }
 }

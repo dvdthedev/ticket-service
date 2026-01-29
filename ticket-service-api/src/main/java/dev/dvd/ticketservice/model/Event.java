@@ -35,6 +35,14 @@ public class Event {
         return venue;
     }
 
+    public void setVenue(String venue) {
+        this.venue = venue;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
     public List<Registration> getRegistrationList() {
         return registrationList;
     }
